@@ -8,15 +8,7 @@
 
 'use strict';
 
-var fs = require('fs');
-var http = require('http');
-var BrowserStackTunnel = require('browserstacktunnel-wrapper');
-
-var HOSTNAME = 'localhost';
-var PORTS = [9876, 9877];
-var ACCESS_KEY = process.env.BROWSER_STACK_ACCESS_KEY;
-var READY_FILE = process.env.BROWSER_PROVIDER_READY_FILE;
-var TUNNEL_IDENTIFIER = process.env.TRAVIS_JOB_NUMBER;
+ss.env.TRAVIS_JOB_NUMBER;
 
 // We need to start fake servers, otherwise the tunnel does not start.
 var fakeServers = [];
@@ -30,18 +22,6 @@ PORTS.forEach(function(port) {
 var tunnel =
     new BrowserStackTunnel({key: ACCESS_KEY, localIdentifier: TUNNEL_IDENTIFIER, hosts: hosts});
 
-console.info('Starting tunnel on ports', PORTS.join(', '));
-tunnel.start(function(error) {
-  if (error) {
-    console.error('Can not establish the tunnel', error);
-  } else {
-    console.info('Tunnel established.');
-    fakeServers.forEach(function(server) {
-      server.close();
-    });
-
-    if (READY_FILE) {
-      fs.writeFile(READY_FILE, '');
     }
   }
 });
